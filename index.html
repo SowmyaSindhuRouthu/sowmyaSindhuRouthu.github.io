@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sowmya | Senior Angular Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f1117;
+    --ink-muted: #4a4f5e;
+    --ink-faint: #8a8f9e;
+    --surface: #fafaf8;
+    --card: #ffffff;
+    --accent: #1a5fff;
+    --accent-soft: #e8efff;
+    --accent2: #00b37e;
+    --accent2-soft: #e0f8ef;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.14);
+    --radius: 16px;
+    --shadow: 0 2px 24px rgba(0,0,0,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,248,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 max(24px, calc((100vw - 1100px)/2));
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; letter-spacing: -0.5px; color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--ink-muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* WRAPPER */
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* HERO */
+  .hero {
+    padding: 96px 0 80px;
+    display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.1; letter-spacing: -1.5px; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 18px; color: var(--ink-muted); font-weight: 400;
+    max-width: 520px; margin-bottom: 36px; line-height: 1.7;
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px; border-radius: 100px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: all 0.2s; cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #1248d6; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(26,95,255,0.28); }
+  .btn-ghost { background: var(--card); color: var(--ink); border: 1.5px solid var(--border-strong); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  /* HERO VISUAL CARD */
+  .hero-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .hero-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    overflow: hidden; margin-bottom: 20px;
+    border: 3px solid var(--accent-soft);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .hero-avatar img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+  }
+  .hero-card-name { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .hero-card-role { font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .stat-box {
+    background: var(--surface); border-radius: 10px;
+    padding: 12px; text-align: center;
+  }
+  .stat-num { font-size: 22px; font-weight: 700; color: var(--accent); line-height: 1; }
+  .stat-lbl { font-size: 11px; color: var(--ink-faint); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .tag.green { background: var(--accent2-soft); color: #007a56; }
+
+  /* SECTIONS */
+  section { padding: 80px 0; }
+  .section-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    letter-spacing: -1px; line-height: 1.2; margin-bottom: 16px;
+  }
+  .section-intro { font-size: 17px; color: var(--ink-muted); max-width: 580px; margin-bottom: 48px; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .about-text p { color: var(--ink-muted); line-height: 1.8; margin-bottom: 16px; font-size: 16px; }
+  .exp-list { list-style: none; }
+  .exp-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+  }
+  .exp-dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
+    flex-shrink: 0; margin-top: 6px;
+  }
+  .exp-company { font-weight: 600; font-size: 15px; }
+  .exp-role { font-size: 13px; color: var(--ink-muted); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .skill-icon { font-size: 28px; margin-bottom: 14px; }
+  .skill-title { font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+  .skill-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+  .skill-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+  .skill-badge {
+    font-size: 11px; padding: 3px 8px; border-radius: 100px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--ink-muted);
+  }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .project-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .project-bar { height: 5px; }
+  .bar-blue { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .bar-green { background: linear-gradient(90deg, var(--accent2), #00d4a0); }
+  .bar-purple { background: linear-gradient(90deg, #7c3aed, var(--accent)); }
+  .project-body { padding: 24px; }
+  .project-type { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+  .project-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  .project-desc { font-size: 14px; color: var(--ink-muted); line-height: 1.6; margin-bottom: 16px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .project-tag {
+    font-size: 11px; padding: 3px 8px; border-radius: 100px;
+    background: var(--accent-soft); color: var(--accent); font-weight: 500;
+  }
+
+  /* CONTACT */
+  .contact-wrap {
+    background: var(--ink); border-radius: 24px;
+    padding: 64px; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: center;
+  }
+  .contact-wrap h2 { color: #fff; }
+  .contact-wrap .section-label { color: var(--accent2); }
+  .contact-wrap p { color: rgba(255,255,255,0.6); font-size: 16px; line-height: 1.7; margin-bottom: 28px; }
+  .contact-links { display: flex; flex-direction: column; gap: 14px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px; border-radius: 12px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+    text-decoration: none; color: #fff; font-size: 14px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .contact-link:hover { background: rgba(255,255,255,0.13); transform: translateX(4px); }
+  .contact-link-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .ic-blue { background: var(--accent); }
+  .ic-gray { background: #333; }
+  .ic-green { background: var(--accent2); }
+  .contact-link-text { flex: 1; }
+  .contact-link-label { font-weight: 600; font-size: 14px; }
+  .contact-link-val { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+  .contact-link-arrow { color: rgba(255,255,255,0.3); font-size: 18px; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 40px 24px;
+    font-size: 13px; color: var(--ink-faint);
+    border-top: 1px solid var(--border);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-wrap { grid-template-columns: 1fr; padding: 40px 28px; }
+  }
+
+  /* FADE IN */
+  .fade { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#"><span>S</span>owmya</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero fade">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Available for new roles</div>
+      <h1>Senior Angular <em>Engineer</em></h1>
+      <p class="hero-sub">
+        11+ years building enterprise-grade Angular applications. Currently working on AI-powered frontends at Penske Truck Leasing. Passionate about performance, clean architecture, and modern Angular.
+      </p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-primary">Get in touch →</a>
+        <a href="#projects" class="btn btn-ghost">View my work</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-avatar"><img src="profile.PNG" alt="Sowmya Sindhu Routhu" /></div>
+      <div class="hero-card-name">Sowmya</div>
+      <div class="hero-card-role">Senior Angular Engineer · New Jersey</div>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-num">11+</div><div class="stat-lbl">Years exp</div></div>
+        <div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Companies</div></div>
+        <div class="stat-box"><div class="stat-num">18</div><div class="stat-lbl">Angular v</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag">Angular</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">RxJS</span>
+        <span class="tag green">NgRx</span>
+        <span class="tag green">AWS</span>
+        <span class="tag">Nx</span>
+        <span class="tag">Signals</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-label fade">About me</div>
+    <h2 class="fade">Enterprise experience,<br>modern Angular mindset</h2>
+    <div class="about-grid">
+      <div class="about-text fade">
+        <p>I'm a senior frontend engineer with 11+ years of experience building large-scale Angular applications across banking, transportation, and logistics industries. My work spans Angular 2 through 18, with deep specialization in reactive state management, micro-frontend architecture, and performance optimization.</p>
+        <p>Currently at Penske Truck Leasing via Anagh Technologies, I'm engineering the Catalyst AI platform — an AI-powered fleet management and analytics product built on Angular 18+, NgRx, and AWS serverless services.</p>
+        <p>I care deeply about clean, testable, maintainable code and have a strong track record delivering at scale — from Wells Fargo's internal banking tools to Union Pacific Railroad's enterprise logistics platform.</p>
+      </div>
+      <div class="fade">
+        <ul class="exp-list">
+          <li class="exp-item">
+            <div class="exp-dot"></div>
+            <div>
+              <div class="exp-company">Penske Truck Leasing — Catalyst AI</div>
+              <div class="exp-role">Senior Angular Engineer · Jun 2025–Present</div>
+            </div>
+          </li>
+          <li class="exp-item">
+            <div class="exp-dot"></div>
+            <div>
+              <div class="exp-company">Union Pacific Railroad</div>
+              <div class="exp-role">Full Stack Developer · Aug 2021–Jun 2025</div>
+            </div>
+          </li>
+          <li class="exp-item">
+            <div class="exp-dot"></div>
+            <div>
+              <div class="exp-company">Wells Fargo</div>
+              <div class="exp-role">Front End Developer · Jul 2020–Jun 2021</div>
+            </div>
+          </li>
+          <li class="exp-item">
+            <div class="exp-dot"></div>
+            <div>
+              <div class="exp-company">SEI Investments</div>
+              <div class="exp-role">Front End Developer · May 2018–Jan 2020</div>
+            </div>
+          </li>
+          <li class="exp-item">
+            <div class="exp-dot"></div>
+            <div>
+              <div class="exp-company">KMK Consulting Inc.</div>
+              <div class="exp-role">Web UI Developer · Jan 2017–Apr 2018</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background: white;">
+  <div class="wrap">
+    <div class="section-label fade">Technical skills</div>
+    <h2 class="fade">What I bring to the table</h2>
+    <p class="section-intro fade">Deep expertise across the modern Angular ecosystem with a focus on scalable architecture and developer experience.</p>
+    <div class="skills-grid">
+      <div class="skill-card fade">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-title">Angular (2–20)</div>
+        <div class="skill-desc">Expert-level Angular across all major versions including standalone components, Signals, @defer, and zoneless change detection.</div>
+        <div class="skill-badges">
+          <span class="skill-badge">Signals</span>
+          <span class="skill-badge">OnPush</span>
+          <span class="skill-badge">@defer</span>
+          <span class="skill-badge">SSR/SSG</span>
+        </div>
+      </div>
+      <div class="skill-card fade">
+        <div class="skill-icon">🔄</div>
+        <div class="skill-title">State Management</div>
+        <div class="skill-desc">Production experience with NgRx (createFeature, createActionGroup, Effects), Akita, and BehaviorSubject-driven services.</div>
+        <div class="skill-badges">
+          <span class="skill-badge">NgRx</span>
+          <span class="skill-badge">Akita</span>
+          <span class="skill-badge">RxJS</span>
+          <span class="skill-badge">Effects</span>
+        </div>
+      </div>
+      <div class="skill-card fade">
+        <div class="skill-icon">🧩</div>
+        <div class="skill-title">Micro-Frontends</div>
+        <div class="skill-desc">Architect and build micro-frontend systems using Module Federation, Native Federation, and Nx monorepos at enterprise scale.</div>
+        <div class="skill-badges">
+          <span class="skill-badge">Nx</span>
+          <span class="skill-badge">Module Federation</span>
+          <span class="skill-badge">Webpack</span>
+        </div>
+      </div>
+      <div class="skill-card fade">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-title">AWS Serverless</div>
+        <div class="skill-desc">End-to-end experience with AWS services for deploying scalable Angular apps in production cloud environments.</div>
+        <div class="skill-badges">
+          <span class="skill-badge">Lambda</span>
+          <span class="skill-badge">API Gateway</span>
+          <span class="skill-badge">S3 + CloudFront</span>
+        </div>
+      </div>
+      <div class="skill-card fade">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-title">AI-Powered Frontends</div>
+        <div class="skill-desc">Currently building Catalyst AI — integrating LLM-driven insights, streaming data, and real-time dashboards in Angular.</div>
+        <div class="skill-badges">
+          <span class="skill-badge">AI Integration</span>
+          <span class="skill-badge">Streaming</span>
+          <span class="skill-badge">Dashboards</span>
+        </div>
+      </div>
+      <div class="skill-card fade">
+        <div class="skill-icon">🎯</div>
+        <div class="skill-title">Performance & Testing</div>
+        <div class="skill-desc">Virtual scrolling, lazy loading, Web Workers, NgOptimizedImage, Jest/Jasmine unit testing, and Cypress E2E.</div>
+        <div class="skill-badges">
+          <span class="skill-badge">Jest</span>
+          <span class="skill-badge">Cypress</span>
+          <span class="skill-badge">CDK Virtual Scroll</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-label fade">Featured work</div>
+    <h2 class="fade">Projects & contributions</h2>
+    <p class="section-intro fade">A selection of production projects and open-source work showcasing architecture decisions and real-world problem solving.</p>
+    <div class="projects-grid">
+      <div class="project-card fade">
+        <div class="project-bar bar-blue"></div>
+        <div class="project-body">
+          <div class="project-type">Enterprise · AI Platform</div>
+          <div class="project-title">Catalyst AI — Penske</div>
+          <div class="project-desc">AI-powered fleet management platform built on Angular 18, NgRx, and AWS. Features real-time dashboards, predictive maintenance insights, and LLM-driven analytics for a national truck leasing fleet.</div>
+          <div class="project-tags">
+            <span class="project-tag">Angular 18</span>
+            <span class="project-tag">NgRx</span>
+            <span class="project-tag">AWS</span>
+            <span class="project-tag">Signals</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade">
+        <div class="project-bar bar-green"></div>
+        <div class="project-body">
+          <div class="project-type">Enterprise · Logistics</div>
+          <div class="project-title">Freight Operations Portal</div>
+          <div class="project-desc">Large-scale logistics dashboard for Union Pacific Railroad built with Angular + Nx monorepo and Module Federation. Handles high-frequency real-time data streams for nationwide freight tracking.</div>
+          <div class="project-tags">
+            <span class="project-tag">Nx</span>
+            <span class="project-tag">Module Federation</span>
+            <span class="project-tag">RxJS</span>
+            <span class="project-tag">TypeScript</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade">
+        <div class="project-bar bar-purple"></div>
+        <div class="project-body">
+          <div class="project-type">Enterprise · Banking</div>
+          <div class="project-title">Internal Banking Tools</div>
+          <div class="project-desc">Internal-facing financial tools for Wells Fargo built with Angular and Reactive Forms. Complex multi-step form workflows, dynamic validation, and role-based access control for banking workflows.</div>
+          <div class="project-tags">
+            <span class="project-tag">Reactive Forms</span>
+            <span class="project-tag">Angular</span>
+            <span class="project-tag">NgRx</span>
+            <span class="project-tag">RBAC</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade">
+        <div class="project-bar" style="background: linear-gradient(90deg, #f59e0b, #ef4444);"></div>
+        <div class="project-body">
+          <div class="project-type">Open Source · Demo App</div>
+          <div class="project-title">Angular Shop — Shopping Cart</div>
+          <div class="project-desc">Production-ready Angular 18 shopping cart showcasing NgRx with createFeature & createActionGroup, Angular Signals, multi-step Reactive Forms with cross-field validation, lazy loading, and functional HTTP interceptors.</div>
+          <div class="project-tags">
+            <span class="project-tag">Angular 18</span>
+            <span class="project-tag">NgRx</span>
+            <span class="project-tag">Signals</span>
+            <span class="project-tag">Reactive Forms</span>
+            <span class="project-tag">Lazy Loading</span>
+          </div>
+          <a href="https://github.com/SowmyaSindhuRouthu/angular-shopcart" target="_blank" style="display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:13px; font-weight:600; color:#1a5fff; text-decoration:none;">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            View on GitHub →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-wrap fade">
+      <div>
+        <div class="section-label">Let's connect</div>
+        <h2>Open to senior Angular roles</h2>
+        <p>I'm actively exploring Senior Angular Engineer, Frontend Architect, and Full-Stack (Angular + Node/AWS) opportunities. Based in New Jersey, open to remote or hybrid across the US.</p>
+        <a href="mailto:sowmyasindhu.routhu@gmail.com" class="btn btn-primary">Send me an email →</a>
+      </div>
+      <div class="contact-links">
+        <a href="https://github.com/SowmyaSindhuRouthu" target="_blank" class="contact-link">
+          <div class="contact-link-icon ic-gray">
+            <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">GitHub</div>
+            <div class="contact-link-val">github.com/SowmyaSindhuRouthu</div>
+          </div>
+          <div class="contact-link-arrow">→</div>
+        </a>
+        <a href="https://linkedin.com/in/sowmya-sindhu-routhu-5a7205188" target="_blank" class="contact-link">
+          <div class="contact-link-icon ic-blue">
+            <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-val">linkedin.com/in/sowmya-sindhu-routhu-5a7205188</div>
+          </div>
+          <div class="contact-link-arrow">→</div>
+        </a>
+        <a href="resume.pdf" target="_blank" class="contact-link">
+          <div class="contact-link-icon ic-green">
+            <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zm-3-8H9v-2h6v2zm0 4H9v-2h6v2z"/></svg>
+          </div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">Resume</div>
+            <div class="contact-link-val">Download PDF</div>
+          </div>
+          <div class="contact-link-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built with Angular in mind · Sowmya © 2025 · New Jersey</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
